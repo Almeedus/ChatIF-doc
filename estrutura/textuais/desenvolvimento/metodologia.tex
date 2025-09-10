@@ -1,0 +1,302 @@
+% METODOLOGIA------------------------------------------------------------------
+
+\chapter{METODOLOGIA}
+\label{chap:metodologia}
+
+As tecnologias e ferramentas bases para o desenvolvimento do projeto são conhecidas por sua presença e desempenho no desenvolvimento e refinamento de modelos pré-treinados. A conexão entre as tecnologias ocorreu via uma API desenvolvida em Python, que realiza a criação, chamada e utilização do modelo LLM, que salva tanto as perguntas como as respostas no banco de dados Redis. Dessa forma a utilização do sistema em frontend pode ser consumida por qualquer tecnologia, entretanto a utilização do VueJS se deu pela semântica simples, grande gama de conteúdo presente na internet e a limitação de hardware do desenvolvedor.
+
+O ambiente de desenvolvimento é uma ferramenta muito importante no processo da criação de um software e diante disso foi escolhido o \textbf{Visual Studio Code} para codificar os arquivos e para a realizar a criação da lógica de uma inteligencia artificial GPT, onde permite de forma gratuita a instalação de extensões, bibliotecas e frameworks utilizados no projeto. Este ambiente é utilizado para machine learning, codificação em colaboração, data science, como ferramenta de educação e para demais projetos que não envolvam inteligência artificial.
+
+O \textbf{python} foi escolhido por ser uma linguagem simples e muito utilizada no desenvolvimento de machine learning, inteligencias artificiais e demais algoritmos. Sua compatibilidade visual studio code permite que sua utilização tenha uma melhor performance para o desenvolvimento do projeto por meio das extensões.
+
+Todo esse gerenciamento de pacotes foi possível devido a utilização do \textbf{PIP} (\textit{Pip Installs Packages}), que é o gerenciador de pacotes padrão para Python. Ele é uma ferramenta essencial que simplifica o processo de instalação, atualização e remoção de pacotes e bibliotecas Python. Com o PIP, é possível gerenciar as dependências do projetos, garantindo que todas as bibliotecas necessárias estejam instaladas e atualizadas.
+
+Dessa forma o projeto faz uso do framework \textbf{LangChain}, utilizado na construção de LLMs, onde por meio do desenvolvimento de cadeias (blocos de construção que informa \textbf{o que} deve ser feito ao invés de \textbf{como} deve ser feito). Este framework utiliza em sua composição outras bibliotecas para seu funcionamento, como o exemplo da Numpy, regex, langchain-text-splitters, langchain-community entre outras.
+O modelo GPT utilizado é o GPT4-o desenvolvido pela OpenAI, onde passou pelo fine tuning e tendo como a base inicial o PDF do edital de processo seletivo do IFSP do ano de 2025, provendo assim um modelo único e treinado para o sistema em questão. Por ser um produto da OpenAI.
+Na leitura de arquivos do sistema é utilizado o a biblioteca OS (Operational System, aportuguesando Sistema Operacional) para abrir o arquivo que contém a chave da API, o python-dotenv permite que um arquivo seja configurado com variáveis de ambientes locais para que o sistema as utilize para configurações necessárias, permitindo  por exemplo que a chave da API da OpenAI seja consumida pelo sistema, fazendo assim com que o resto do processo aconteça.
+Para a disponibilização do sistema foi utilizado a biblioteca FastAPI que permite a criação de rotas por meio dos métodos HTTPs, ou seja, ao realizar a criação de uma API e em conjunto da biblioteca requests é possível consumir de forma mais simples o sistema por meio de um JSON no request.
+
+Por fim, para a persistência dos dados foi utilizado o Redis, um banco NoSQL que permite que dados não tabulares sejam inseridos sem nenhuma regra, sendo assim mais flexíveis para projetos em que os dados não apresentam um padrão, como afirma \cite{google_cloud_nosql}. O Redis é um banco de dados orientado a documentos, onde seu armazenamento segue o mesmo padrão de objetos JSON (\textit{JavaScript Object Notation}), mesmo estilo de dados que são enviados e consumidos por APIs. Para a utilização no sistema o Redis conta com uma biblioteca própria de mesmo nome, que permite utilizar de comandos do banco de dados.
+
+Devido ao suporte fornecido pelos sistemas operacionais Linux e Windows para o banco de dados em questão, a stack de tecnologias tem uma pequena distinção, ao utilizar do Windows é necessário o recurso WSL (Windows Subsystem for Linux ou aportuguesando Subsistema Windows para Linux) para executar um ambiente Linux sem que seja necessário a utilização de uma máquina virtual ou uma dupla inicialização para se usar o banco de dados Redis. O backend fica composto pelo banco de dados instalado dentro do WSL que se comunica diretamente com a API desenvolvida em python com o langchain, que por sua vez faz a comunicação com o frontend que é a interface construída em VueJS como aponta a \autoref{fig:diagrama-stack-windows}. 
+
+%Stack do Windows
+\begin{figure}[!htb]
+    \centering
+    \caption{Stack de Tecnologias para Windows}
+    \includegraphics[width=0.9\textwidth]{./dados/figuras/diagrama-stack-windows}
+    \fonte{Própria Autoria}
+    \label{fig:diagrama-stack-windows}
+\end{figure}
+
+Pensando numa arquitetura em Linux, o backend é composto pelo banco de dados redis que se comunica com a API python com langchain, e seu consumo é feito pelo frontend desenvolvido em VueJS, descrito assim pela \autoref{fig:diagrama-stack-linux}. Dessa forma ao utilizar o Linux não se faz necessário a utilização do WSL, uma vez que o Linux da suporte ao banco de dados utilizado no projeto.
+
+%Stack do Linux
+\begin{figure}[!htb]
+    \centering
+    \caption{Stack de Tecnologias Linux}
+    \includegraphics[width=0.9\textwidth]{./dados/figuras/diagrama-stack-linux}
+    \fonte{Própria Autoria}
+    \label{fig:diagrama-stack-linux}
+\end{figure}
+
+Para a disponibilização de uma API RestFull foi utilizado do FastAPI, uma biblioteca que possibilita a criação de rotas e consumo dos métodos HTTPs, que ao coletar os dados, os processa para que o sistema seja alimentado. Para isso foi desenvolvido três rotas, sendo ela uma de teste para verificar a conexão da API com o banco de dados e com o software (ou interface) que irá consumi-la, onde é possível acessar pelo caminho "/"\  e outra que consome o sistema criado com o Langchain pelo caminho "/duvidas", além de uma última "/download"\ que possibilita salvar toda a interação do banco de dados no computador do usuário.
+
+As informações necessárias são enviadas pelo corpo da requisição e seguem o seguinte padrão: "\{"query": "Informe sua pergunta"\}", ao receber a informação ela será processada pelo sistema que previamente carregou o PDF para ser utilizado como base e dividiu texto em partes menores para uma análise mais rápida, e em seguida acontece o embeddings que nada mais é que a representação vetorial do texto que é armazenado de forma eficiente pelo FAISS (Facebook AI Similarity Search, aportuguesando Pesquisa de similaridade de IA do Facebook), partindo para a parte de perguntas, o sistema carrega uma funcionalidade de LLM que recupera os dados e realiza uma busca no texto que foi armazenado pela FAISS. Por fim o sistema utiliza do modelo gpt-4o-2024-08-06:personal:fine-tuning2, que foi treinado anteriormente no sistema da OpenAI. Caso haja algum problema nessa etapa o sistema irá retornar um código 500 (Internal Server Error, aportuguesando Erro do Servidor Interno) para informar que houve alguma questão na aplicação.
+
+O resultado desse processo é salvo no Redis que é um banco de chave-valor, perfeito para armazenar o tipo de dado retornado. Sua escolha se deu pelo desafio de integrar o sistema em um banco de dados não relacional.
+
+O usuário final acessará o sistema por meio de uma interface web desenvolvida com VueJS, que se comunica via requisições HTTP com uma API construída em Python. Essa API, por sua vez, consome os serviços da OpenAI, armazena os dados da requisição no banco de dados e, em seguida, retorna a resposta ao usuário, e para representar a arquitetura geral do sistema desenvolvido, foi elaborado um diagrama tecnológico que resume os principais componentes e suas interações. A \autoref{fig:diagrama-tecnologia} ilustra essa estrutura, destacando três camadas principais: a interface de usuário (frontend), a API do sistema (backend) e o banco de dados para armazenamento das interações. A interface foi desenvolvida com VueJS, permitindo que o usuário interaja visualmente com o sistema, enviando perguntas e recebendo respostas. Essa interface consome os serviços da API construída em Python utilizando o framework FastAPI, que atua como intermediária entre o frontend e os módulos responsáveis pelo processamento, como o LangChain e a API da OpenAI. Após o processamento, as respostas são armazenadas em um banco de dados, permitindo que interações futuras possam ser reaproveitadas para afinação do modelo.
+
+%Diagrama de Tecnologia
+\begin{figure}[!htb]
+    \centering
+    \caption{Diagrama de Tecnologia}
+    \includegraphics[width=0.7\textwidth]{./dados/media/Diagramas e Fluxogramas/Diagramas de Tecnologias}
+    \fonte{Própria Autoria}
+    \label{fig:diagrama-tecnologia}
+\end{figure}
+
+O usuário pode realizar três ações ao utilizar o sistema, enviar perguntas, receber respostas e exportar os dados por meio de um download. Ao enviar e receber perguntas o sistema processa a informação e consulta o sistema externo da OpenAI, após receber uma resposta ela é processada novamente pelo sistema Chatbot IA e é salvo no banco de dados. Quando o usuário solicita uma exportação por meio da rota de download, é enviado uma solicitação ao sistema que consulta o banco de dados e gera um arquivo com a extensão .jsonl. Para uma melhor compreensão da interação entre os usuários e o sistema, foi elaborado um diagrama de caso de uso. Esse diagrama está apresentado na \autoref{fig:diagrama-caso-uso} e mostra os três atores principais: o usuário, a API da OpenAI e o banco de dados. O usuário envia perguntas ao chatbot, recebe respostas e pode exportar os dados armazenados. A API da OpenAI processa as perguntas e retorna as respostas, enquanto o banco de dados armazena as interações para consultas futuras.
+
+%Diagrama de Caso de Uso
+\begin{figure}[!htb]
+    \centering
+    \caption{Diagrama de Caso de Uso}
+    \includegraphics[width=0.7\textwidth]{./dados/media/Diagramas e Fluxogramas/Diagramas de Caso de Uso}
+    \fonte{Própria Autoria}
+    \label{fig:diagrama-caso-uso}
+\end{figure}
+
+A resposta é gerada quando o usuário realiza uma pergunta por meio do sistema. Essa pergunta é recebida por uma requisição HTTP, e o sistema carrega as informações dos PDFs previamente configurados. Em seguida, a consulta é formatada e estruturada antes de ser enviada à API da OpenAI, que processa e retorna uma resposta. Ao receber essa resposta, o sistema a formata novamente para armazená-la no banco de dados. Somente após esse processo, a resposta é enviada ao usuário. Caso a conexão com o banco de dados falhe, é retornada uma exceção HTTP 500, indicando um erro interno no servidor. O processo de resposta automatizada do sistema foi representado em um fluxograma, conforme ilustrado na \autoref{fig:fluxograma-resposta}. O sistema recebe uma pergunta via protocolo HTTP, realiza a formatação e validação da entrada e, depois, envia para o modelo GPT-4o configurado com o LangChain. Após o processamento, a resposta é retornada ao usuário e armazenada no banco de dados.
+
+%Fluxograma de Resposta
+\begin{figure}[!htb]
+    \centering
+    \caption{Fluxograma de Resposta}
+    \includegraphics[width=0.3\textwidth]{./dados/media/Diagramas e Fluxogramas/Fluxograma de Resposta}
+    \fonte{Própria Autoria}
+    \label{fig:fluxograma-resposta}
+\end{figure}
+\pagebreak
+
+Ao solicitar a exportação dos registros existentes no banco de dados, o usuário acessa uma rota específica chamada "download". Quando a requisição é feita, o sistema se conecta ao banco de dados, recupera os dados solicitados, formata essas informações e gera um arquivo .jsonl (JavaScript Object Notation Lines), que é então enviado como resposta ao usuário. Esse processo está representado na \autoref{fig:fluxograma-download}.
+
+%Fluxograma de Download
+\begin{figure}[!htb]
+    \centering
+    \caption{Fluxograma de Download}
+    \includegraphics[width=0.15\textwidth]{./dados/media/Diagramas e Fluxogramas/Fluxograma de Download}
+    \fonte{Própria Autoria}
+    \label{fig:fluxograma-download}
+\end{figure}
+
+Durante o treinamento de um modelo na plataforma da OpenAI, algumas informações são geradas automaticamente. O nome do modelo é composto por uma combinação da versão do GPT, data de criação, um prefixo e o nome definido pelo usuário no momento da criação. Em seguida, é exibido o status do treinamento, indicando se foi concluído com sucesso ou não. Também é gerado um ID de trabalho, que identifica o processo de treinamento, seguido pelo tipo de modelo (neste caso, supervisionado). Após isso, aparece o sufixo, que corresponde ao nome fornecido na criação, e, por fim, o modelo base utilizado como referência. O identificador único (ID) foi incorporado diretamente no código da API em Python para garantir que todas as requisições utilizem o modelo personalizado. No caso deste sistema, o ID gerado foi ft:gpt-4o-2024-08-06:personal:fine-tuning2:AoGMkhl2, como pode ser observado na \autoref{fig:finetuning-informacoes-basicas}.
+
+%Info básicas 1
+\begin{figure}[!htb]
+    \centering
+    \caption{Informações Básicas do FineTuning}
+    \includegraphics[width=0.7\textwidth]{./dados/media/FineTuning/FineTuning InfoBasicas}
+    \fonte{Interface OpenAI}
+        \label{fig:finetuning-informacoes-basicas}
+\end{figure}
+\pagebreak
+
+No modelo exibido na saída, é possível observar que sua criação ocorreu em 10 de janeiro de 2025, às 17h45. O treinamento utilizou 17.010 tokens ao longo de três épocas, com um tamanho de lote correspondente a um dado existente no arquivo de treinamento fornecido. A taxa de aprendizagem utilizada foi igual a 2, e a semente aleatória gerada automaticamente pela plataforma foi 42. Essas informações do ID, a semente aleatória (seed), o número de épocas, o tamanho do lote (batch size) e a taxa de aprendizagem (learning rate) estão destacadas na \autoref{fig:finetuning-informacoes-basicas2}.
+
+%Info básicas 2
+\begin{figure}[!htb]
+    \centering
+    \caption{Informações Básicas do FineTuning 2}
+    \includegraphics[width=0.7\textwidth]{./dados/media/FineTuning/FineTuning InfoBasicas 2}
+    \fonte{Interface OpenAI}
+        \label{fig:finetuning-informacoes-basicas2}
+\end{figure}
+\pagebreak
+
+O processo é acompanhado por mensagens de status, que documentam cronologicamente cada etapa. Após a criação do modelo, ele passa por uma fase de validação do arquivo fornecido. Uma vez validado, o status é atualizado e inicia-se o processo de fine-tuning. Durante esse processo, são gerados três checkpoints utilizáveis, correspondentes à quantidade de épocas informadas no momento da configuração. No exemplo analisado, os checkpoints ocorrem nos passos 89, 178 e, por fim, na conclusão do treinamento, quando o modelo recebe o status de "treinamento concluído com sucesso".O processo completo de fine tuning levou aproximadamente doze minutos e foi documentado passo a passo na \autoref{fig:finetuning-steps}, onde são mostradas as fases desde o envio do dataset até a conclusão do treinamento.
+
+%Steps
+\begin{figure}[!htb]
+    \centering
+    \caption{Passos de Treinamento do FineTuning}
+    \includegraphics[width=0.7\textwidth]{./dados/media/FineTuning/FineTuning Steps}
+    \fonte{Interface OpenAI}
+        \label{fig:finetuning-steps}
+\end{figure}
+
+Ao final do processo, é fornecida a ordem cronológica das épocas juntamente com os identificadores únicos de cada uma, que podem ser utilizados posteriormente, se necessário. A OpenAI também disponibiliza os checkpoints correspondentes a cada época do modelo treinado, permitindo a análise do desempenho do modelo em diferentes estágios do aprendizado. Essa funcionalidade está ilustrada na \autoref{fig:finetuning-checkpoints}.
+
+%Checkpoints
+\begin{figure}[!htb]
+    \centering
+    \caption{Checkpoints do FineTuning}
+    \includegraphics[width=0.7\textwidth]{./dados/media/FineTuning/FineTuning Checkpoints}
+    \fonte{Interface OpenAI}
+        \label{fig:finetuning-checkpoints}
+\end{figure}
+\pagebreak
+
+O arquivo utilizado no processo de treinamento permanece disponível para consulta, juntamente com uma métrica que indica a taxa de perda (loss) durante o treinamento, cujo valor final foi de 0,0747. Essa métrica representa a quantidade de informações não assimiladas pelo modelo (quanto mais próxima de 1, maior a perda). Todo o processo é representado graficamente, mostrando que a maior taxa de perda ocorreu durante a primeira época. A partir da segunda, a perda cai pela metade e, ao final do treinamento, a taxa já se apresenta consideravelmente baixa. A \autoref{fig:finetuning-metricas} exibe esse gráfico, demonstrando a evolução da taxa de perda ao longo do processo e destacando a boa consistência e aprendizado do modelo com os dados fornecidos.
+
+%Metricas
+\begin{figure}[!htb]
+    \centering
+    \caption{Métricas do FineTuning}
+    \includegraphics[width=0.7\textwidth]{./dados/media/FineTuning/FineTuning Metricas}
+    \fonte{Interface OpenAI}
+        \label{fig:finetuning-metricas}
+\end{figure}
+
+De acordo com a OpenAI \cite{OpenAI_Fine_Tuning_2024}, o processo de fine-tuning permite treinar modelos personalizados a partir de exemplos fornecidos pelo próprio desenvolvedor. Para isso, é necessário utilizar um arquivo no formato \textbf{JSONL} (JavaScript Object Notation Lines). Cada linha do arquivo representa um objeto estruturado em pares chave-valor, contendo mensagens que definem os papéis (roles) no contexto da conversa: o papel do sistema, que fornece instruções gerais; o papel do usuário, que apresenta a pergunta; e o papel do assistente, que corresponde à resposta esperada para aquela pergunta. Como apresentado na \autoref{fig:finetuning-formato}, cada linha do arquivo contém a pergunta do usuário, a resposta esperada, e, instruções de como o sistema deve se comportar, como tom de voz, nível de formalidade ou estilo da resposta.
+
+%Formato
+\begin{figure}[!htb]
+    \centering
+    \caption{Formato do FineTuning}
+    \includegraphics[width=0.9\textwidth]{./dados/media/FineTuning/FineTuning Formato}
+    \fonte{Própria Autoria}
+    \label{fig:finetuning-formato}
+\end{figure}
+
+Durante o desenvolvimento do sistema, algumas informações sensíveis tornaram-se essenciais para seu funcionamento. Por esse motivo, foi necessária a criação de um arquivo de variáveis de ambiente para evitar o vazamento desses dados no código-fonte. A variável \textbf{OPENAI\_API\_KEY} armazena a chave de acesso fornecida pela OpenAI. As variáveis \textbf{REDIS\_HOST} e \textbf{REDIS\_PORT} armazenam, respectivamente, o endereço IP de conexão com o banco de dados (neste caso, 127.0.0.1) e a porta utilizada para essa conexão (porta 6379). Com o arquivo de variáveis de sistema e o modelo treinado e disponível para uso, foi desenvolvida uma API utilizando FastAPI em Python para disponibilizá-lo aos usuários. Todas as informações descritas na \autoref{fig:variaveis-sistema} são fundamentais para o desenvolvimento e a execução do sistema, detalhando as variáveis e seus valores que possibilitam a conexão com o banco de dados e o acesso à API da OpenAI. A criação do arquivo .env permitiu construir uma estrutura de código mais limpa, segura e organizada.
+
+%Variaveis do Sistema
+\begin{figure}[!htb]
+    \centering
+    \caption{Variáveis do Sistema}
+    \includegraphics[width=0.9\textwidth]{./dados/media/Capturas de códigos/Backend/Variaveis do Sistema}
+    \fonte{Própria Autoria}
+        \label{fig:variaveis-sistema}
+\end{figure}
+\pagebreak
+
+Para o desenvolvimento da conexão com o banco de dados e com a API da OpenAI, são utilizadas as bibliotecas dotenv, os e redis. Essas bibliotecas têm funções específicas: carregar as variáveis de ambiente do arquivo .env, acessar essas variáveis por meio do sistema operacional e instanciar a conexão com o Redis, respectivamente. A configuração tem início com o carregamento do arquivo .env, utilizando o comando \textbf{load\_dotenv()}. Em seguida, a variável \textbf{api\_key} é instanciada com o valor da chave configurada no arquivo de variáveis do sistema. Caso o carregamento dessa variável falhe, é exibida uma mensagem de erro indicando a ausência da chave de API. Após isso, a conexão com o banco de dados Redis é estabelecida, carregando os valores de \textbf{REDIS\_HOST} e \textbf{REDIS\_PORT} do arquivo .env. A conexão é instanciada utilizando o parâmetro \textbf{decode\_responses=True}, que garante que os dados retornados pelo Redis sejam tratados como strings nativas do Python, em vez de bytes. Dessa forma, a configuração inicial da API é realizada com a leitura das variáveis do sistema, organizadas de maneira segura no arquivo .env, permitindo o uso de dados sensíveis como chaves de acesso e parâmetros de conexão. Esse processo está representado na \autoref{fig:configuracao-inicial}.
+
+%Configuração Inicial
+\begin{figure}[!htb]
+    \centering
+    \caption{Configuração Inicial}
+    \includegraphics[width=0.9\textwidth]{./dados/media/Capturas de códigos/Backend/Configuração}
+    \fonte{Própria Autoria}
+        \label{fig:configuracao-inicial}
+\end{figure}
+\pagebreak
+
+O processo de carregamento do modelo tem início com a importação das bibliotecas e módulos da biblioteca \textbf{LangChain}, além do módulo \textbf{os}, responsável por interações com o sistema operacional. Em seguida, a variável \texttt{base\_dir} define o diretório onde o script está localizado, enquanto \texttt{pdf\_path} monta o caminho completo até o arquivo PDF, localizado dentro da pasta \texttt{src}. Com o caminho completo definido, é criado um carregador para o PDF por meio da variável \texttt{loader}, que realiza a leitura do arquivo e o transforma em uma lista de documentos, armazenada na variável \texttt{documents}. Para que o texto possa ser processado de forma eficiente, é necessário dividi-lo em partes menores. Esse processo é realizado pelas variáveis \texttt{text\_splitter} e \texttt{docs}, que configuram e executam a divisão do conteúdo em blocos de até 1000 caracteres, com uma sobreposição de 100 caracteres entre eles, garantindo melhor continuidade sem perda de contexto. A etapa seguinte consiste na geração dos embeddings, que são representações vetoriais dos trechos de texto. A variável \texttt{embeddings} inicializa o gerador de vetores utilizando a API da OpenAI, enquanto \texttt{vectorstore} constrói um banco vetorial com base nos documentos divididos, permitindo buscas eficientes por similaridade textual por meio da biblioteca FAISS. Por fim, a criação da cadeia de Perguntas e Respostas é realizada pela variável \texttt{qa\_chain}, que instancia o modelo de linguagem previamente treinado e ajustado (\texttt{llm}), neste caso, uma versão personalizada do \textbf{GPT-4o}. Além disso, configura-se o \texttt{retriever}, que utiliza o banco vetorial FAISS para localizar os trechos mais relevantes ao responder às perguntas. Essa etapa está representada na \autoref{fig:modelo-llm}, ilustrando o momento em que o modelo treinado é integrado ao sistema, possibilitando sua aplicação prática.
+
+%Modelo LLM
+\begin{figure}[!htb]
+    \centering
+    \caption{Criação de Modelo LLM}
+    \includegraphics[width=0.9\textwidth]{./dados/media/Capturas de códigos/Backend/Modelo LLM}
+    \fonte{Própria Autoria}
+        \label{fig:modelo-llm}
+\end{figure}
+\pagebreak
+
+A construção da API tem início com a utilização do framework \textbf{FastAPI}. A classe \texttt{FastAPI} é responsável por instanciar a aplicação, enquanto a \texttt{HTTPException} permite o tratamento de erros personalizados. São importados também o \texttt{CORS\-Middleware}, necessário para liberar o acesso à API por diferentes origens (CORS), e o \texttt{BaseModel}, do \textit{Pydantic}, utilizado para validar os dados recebidos nas requisições. Além dessas bibliotecas, dois módulos internos também são importados: \texttt{redis\_db}, que gerencia a conexão com o banco de dados Redis, e \texttt{qa\_chain}, que representa a cadeia de Perguntas e Respostas utilizada no sistema. As bibliotecas nativas \texttt{json} e \texttt{os} completam a configuração, auxiliando na manipulação de arquivos e caminhos. A aplicação é iniciada com a criação da instância \texttt{app = FastAPI()}. Em seguida, é configurado o middleware CORS por meio do método \texttt{add\_middleware()}, permitindo o acesso à API a partir de qualquer origem, com qualquer método HTTP e cabeçalho. Essa configuração é essencial para garantir a integração com aplicações frontend. A classe \texttt{QueryRequest} é definida com base na estrutura do \texttt{BaseModel}, contendo um único atributo chamado \texttt{query}, do tipo \texttt{string}, que representa a pergunta enviada pelo usuário. Por fim, é criada uma rota do tipo \texttt{GET}, mapeada no caminho \texttt{"/"}, que retorna uma mensagem simples indicando que a API está ativa e funcionando corretamente. Essa configuração é apresentada na \autoref{fig:configuracao-rota}.
+
+%Configuração de Rota
+\begin{figure}[!htb]
+    \centering
+    \caption{Configuração de Rota}
+    \includegraphics[width=0.9\textwidth]{./dados/media/Capturas de códigos/Backend/Configuração de Rota}
+    \fonte{Própria Autoria}
+        \label{fig:configuracao-rota}
+\end{figure}
+\pagebreak
+
+A aplicação conta com uma rota principal do tipo \texttt{POST}, no caminho \texttt{/duvidas}, que tem como objetivo receber a pergunta enviada pelo usuário e retornar uma resposta gerada pelo modelo. Essa funcionalidade é definida pela função \texttt{answer\_query()}, que recebe como parâmetro um objeto do tipo \texttt{QueryRequest}, contendo a string \texttt{query} com a dúvida a ser processada. A partir disso, a variável \texttt{response} armazena o resultado da função \texttt{invoke()} da cadeia \texttt{qa\_chain}, responsável por gerar a resposta com base na pergunta recebida. Em seguida, é construída a estrutura \texttt{data}, que organiza as mensagens trocadas entre sistema, usuário e assistente. O campo \texttt{system} define o comportamento do modelo, informando que ele deve agir como um atendente do Instituto Federal de São Paulo - Campus de Itapetininga. O campo \texttt{user} registra a pergunta enviada pelo usuário e o campo \texttt{assistant} armazena a resposta gerada pelo modelo. A estrutura \texttt{data} é então armazenada no banco de dados Redis por meio do método \texttt{rpush()}, que insere o conteúdo serializado com \texttt{json.dumps()} na lista \texttt{queries\_responses}. Por fim, os dados são retornados como resposta da API. Caso ocorra alguma exceção durante a execução, é lançado um erro do tipo \texttt{HTTPException}, com o status \texttt{500}, indicando uma falha no backend. Essa etapa está representada na \autoref{fig:rota-perguntas}.
+
+%Rota Duvidas
+\begin{figure}[!htb]
+    \centering
+    \caption{Configuração de Rota de Perguntas}
+    \includegraphics[width=0.9\textwidth]{./dados/media/Capturas de códigos/Backend/Rota de Duvidas}
+    \fonte{Própria Autoria}
+        \label{fig:rota-perguntas}
+\end{figure}
+\pagebreak
+
+Para realizar o download da base de dados, foi criado uma rota "/download" que contém uma função responsável por exportar os dados salvos no Redis no formato \texttt{JSON Lines}, que é muito usado quando queremos treinar modelos de linguagem com exemplos personalizados. Ela começa buscando todos os registros da lista \texttt{queries\_responses} no Redis usando o comando \texttt{lrange}. Depois disso, cada item da lista (que está como uma string JSON) é convertido em um dicionário Python usando o \texttt{json.loads()}. Na sequência, o código abre (ou cria) o arquivo \texttt{ArquivoFineTuning.jsonl} e começa a escrever os dados nele. Cada item é escrito como um objeto JSON em uma linha do arquivo, e o parâmetro \texttt{ensure\_ascii=False} é usado para manter os acentos e caracteres especiais corretamente. Por fim, uma quebra de linha é adicionada entre os registros, exceto no último, para manter o padrão do formato \texttt{.jsonl} corretamente. Toda essa lógica pode ser vista na \autoref{fig:rota-download}.
+
+%Rota Download
+\begin{figure}[!htb]
+    \centering
+    \caption{Configuração de Rota de Download}
+    \includegraphics[width=0.9\textwidth]{./dados/media/Capturas de códigos/Backend/Rota de Download}
+    \fonte{Própria Autoria}
+        \label{fig:rota-download}
+\end{figure}
+\pagebreak
+
+Ao acessar a rota de teste "/", é possível verificar, na tela à direita, um dicionário contendo a chave \texttt{message} com o valor \texttt{"API funcionando"}, o que confirma que a API está ativa e operando corretamente. Simultaneamente, a tela à esquerda exibe no terminal os logs de inicialização do sistema, iniciados pelo processo de ID 8412, além das informações da requisição recebida. Como saída, observam-se o IP e a porta utilizados, o método HTTP empregado e o código de status 200, indicando sucesso na operação. Dessa forma, a API está pronta para ser consumida por diferentes meios. Uma das formas de interação é por meio de ferramentas de linha de comando, como o cURL, que permite o envio de requisições e a visualização das respostas retornadas pelo modelo treinado, conforme ilustrado na \autoref{fig:rota-teste-thunderclient}.
+
+%Rota Teste - ThunderClient
+\begin{figure}[!htb]
+    \centering
+    \caption{Formato Teste}
+    \includegraphics[width=0.9\textwidth]{./dados/media/Capturas de Interfaces de Consumo/Rota Teste - ThunderClient}
+    \fonte{Própria Autoria}
+        \label{fig:rota-teste-thunderclient}
+\end{figure}
+
+
+Com o objetivo de aprimorar a experiência do usuário final, foi desenvolvida uma interface web intuitiva, composta por um menu lateral contendo a logo do sistema e filtros de pesquisa organizados por seções específicas do edital, como Locais de Prova, E-mails de Contato, Datas Importantes e Outras Dúvidas. Na página principal, as interações são apresentadas de forma clara, com as perguntas do usuário exibidas à direita e as respostas geradas pelo sistema à esquerda. Ao final da interface, há um campo de entrada para digitação da dúvida e um botão de envio. Essa abordagem torna a comunicação com o sistema mais acessível e amigável, conforme representado na \autoref{fig:rota-perguntas-interface}.
+
+%Rota de Pergunta - Interface VueJS
+\begin{figure}[!htb]
+    \centering
+    \caption{Interface VueJS}
+    \includegraphics[width=0.9\textwidth]{./dados/media/Capturas de Interfaces de Consumo/Rota de Pergunta - Interface}
+    \fonte{Própria Autoria}
+        \label{fig:rota-perguntas-interface}
+\end{figure}
+
+Ao testar a rota principal da aplicação, "/duvidas", é exibido, à direita da interface, o ID do sistema, a rota acessada e o método HTTP utilizado, neste caso o \texttt{POST}. O corpo da requisição é um JSON contendo a chave \texttt{query} com o valor \texttt{"Qual é o email do Campus de Itapetininga?"}. Como resposta, o sistema retorna um código de status 200, um corpo de 278 bytes e um tempo de resposta de 12,07 segundos. A resposta inclui ainda uma estrutura no formato JSON, na qual a chave \texttt{messages} armazena três dicionários, representando as interações entre o sistema, o usuário e o assistente, por meio das chaves \texttt{role} e \texttt{content}. Nelas, o sistema se comporta como um atendente do Instituto Federal de São Paulo (Campus Itapetininga), recebendo a dúvida do usuário e fornecendo a resposta correspondente. À esquerda, é possível visualizar os logs da aplicação, incluindo o momento da inicialização, os dados da requisição recebida, como IP, porta, método utilizado e o código de status gerado. Esses resultados podem ser observados na \autoref{fig:rota-perguntas-thunderclient}.
+
+%Rota de Pergunta - ThunderClient
+\begin{figure}[!htb]
+    \centering
+    \caption{Teste de Consumo pelo ThunderClient na Rota de Perguntas}
+    \includegraphics[width=0.7\textwidth]{./dados/media/Capturas de Interfaces de Consumo/Rota de Perguntas - ThunderClient}
+    \fonte{Própria Autoria}
+        \label{fig:rota-perguntas-thunderclient}
+\end{figure}
+\pagebreak
+
+Por meio da extensão Thunder Client, integrada ao Visual Studio Code, foi possível consumir a rota "/download", cuja função é gerar um arquivo contendo todas as interações registradas no banco de dados. À esquerda da imagem, visualizam-se as informações referentes ao IP, à rota acessada e ao método HTTP utilizado — neste caso, o \texttt{GET}. Logo abaixo, são apresentados o código de status 200 (OK), o tamanho da resposta (4 bytes) e o tempo de resposta do sistema, que foi de 67 milissegundos. À direita, há duas seções: a primeira exibe o arquivo gerado pelo sistema, que reúne todos os registros persistidos no banco de dados no formato JSONL; a segunda apresenta os logs de inicialização do sistema, além dos testes realizados nas três rotas disponíveis ("/", "/duvidas" \ e "/download"). Todos os testes retornaram com sucesso, conforme indica o código de status 200 ilustrado na \autoref{fig:rota-download-thunderclient}.
+
+%Rota de Download - ThunderClient
+\begin{figure}[!htb]
+    \centering
+    \caption{Teste de Consumo pelo ThunderClient na Rota de Download}
+    \includegraphics[width=0.7\textwidth]{./dados/media/Capturas de Interfaces de Consumo/Rota de Download - ThunderClient}
+    \fonte{Própria Autoria}
+        \label{fig:rota-download-thunderclient}
+\end{figure}
+\pagebreak
+
+O arquivo gerado pela rota "/download" \ apresenta as interações no formato adequado para fins de treinamento na plataforma da OpenAI, podendo ser manipulado para que o sistema aprenda a responder as perguntas que ele não sabe. Todas as perguntas realizadas durante os testes, especialmente aquelas baseadas no conteúdo do edital, estão registradas no arquivo, acompanhadas das respectivas respostas fornecidas pelo sistema. Alguns questionamentos de conhecimento geral o sistema é capaz de responder, visto que utiliza o modelo GPT-4o como base. No entanto, ao receber perguntas muito específicas e fora do escopo previsto, o sistema responde com a mensagem: "Não sei, essa informação não está nas referências". A \autoref{fig:download-persistencia} ilustra o resultado desse processo de persistência.
+
+%Formato de Download
+\begin{figure}[!htb]
+    \centering
+    \caption{Formato de Download 2}
+    \includegraphics[width=0.9\textwidth]{./dados/media/Captura do Banco de Dados/Download das Persistencias}
+    \fonte{Própria Autoria}
+        \label{fig:download-persistencia}
+\end{figure}
+
+Por fim, ao acessar o banco de dados via WSL por um terminal no Windows e fornecer o comando do Redis \texttt{lrange queries\_responses 0 -1} é obtido como respostas todas as interações realizadas pelo sistema que estão são armazenadas no banco de dados. Nesse processo os caracteres especiais não funcionam corretamente, então em alguns casos trechos com caracteres unicodes como \texttt{"u00e9"} são comuns por representarem a letra "é" \  .Cada entrada corresponde a um objeto JSON com os dados completos da pergunta, resposta e metadados adicionais. Essa estrutura está descrita na \autoref{fig:banco-dados}.
+
+%Banco de Dados
+\begin{figure}[!htb]
+    \centering
+    \caption{Banco de Dados}
+    \includegraphics[width=0.9\textwidth]{./dados/media/Captura do Banco de Dados/Banco de Dados}
+    \fonte{Própria Autoria}
+        \label{fig:banco-dados}
+\end{figure}
