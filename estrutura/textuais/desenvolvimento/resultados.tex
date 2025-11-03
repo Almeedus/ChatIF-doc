@@ -2,43 +2,16 @@
 
 \chapter{DESENVOLVIMENTO E RESULTADOS}
 
-O presente trabalho foi considerado uma pesquisa de natureza aplicada, pois buscou, através do desenvolvimento de um sistema utilizando métodos e tecnologias atuais, solucionar o problema apontado neste documento.
+O presente trabalho caracteriza-se como uma pesquisa de natureza aplicada, uma vez que buscou, por meio do desenvolvimento de um sistema utilizando métodos e tecnologias atuais, propor uma solução prática para o problema identificado ao longo deste estudo.
 
-A pesquisa abordada foi descritiva e exploratória, pois utilizou metodologias de observação para definir o tempo de pesquisa da população diante do sistema utilizado e da pesquisa tradicional no PDF, para assim metrificar a utilização de ambas as formas de pesquisa e verificar se o usuário diante do sistema desenvolvido apresentou um tempo menor para realizar a busca.
+O sistema foi estruturado em uma arquitetura composta por três principais camadas: uma interface web desenvolvida em Vue.js, responsável pela interação com o usuário; uma API em Python utilizando o framework FastAPI, responsável pelo processamento das requisições e pela comunicação com o modelo de linguagem; e um banco de dados Redis, utilizado para armazenar as interações realizadas. Essa divisão possibilitou uma comunicação eficiente entre os componentes, maior organização do código e flexibilidade para futuras melhorias.
 
-No que se refere à abordagem, este projeto se enquadrou num contexto onde duas metodologias foram empregadas: abordagem qualitativa, por meio da observação da população, e abordagem quantitativa, para delimitar com dados o impacto do sistema desenvolvido diante da observação realizada.
+Durante a construção do código e a configuração do modelo, foram encontrados alguns desafios, especialmente relacionados ao consumo de APIs externas, que exigem o envio de tokens e, consequentemente, geram custos por utilização. O desenvolvimento das chains (cadeias de execução) mostrou-se um processo interessante e didático, permitindo estruturar uma lógica simples e eficiente para o fluxo do sistema.
 
-A principal forma de coleta de dados ocorreu no Instituto Federal de São Paulo, Campus de Itapetininga, onde foram investigadas duas populações:
+Um dos principais diferenciais deste projeto foi a utilização do processo de Fine Tuning disponibilizado pela OpenAI, que permitiu o treinamento de um modelo ajustado às necessidades do contexto escolar. Esse processo exigiu a preparação de um conjunto de dados no formato JSONL, contendo exemplos de perguntas e respostas que orientaram o comportamento do modelo. Além disso, foi necessário configurar parâmetros de treinamento, como taxa de aprendizado, número de épocas e tamanho do lote, de forma a otimizar os resultados obtidos.
 
-\begin{itemize}
-    \item Grupo A: 5 indivíduos que buscaram informações sobre o processo seletivo utilizando o sistema desenvolvido.
-    \item Grupo B: 5 indivíduos que realizaram consultas no edital do processo seletivo para encontrar as informações.
-\end{itemize}
+No uso de um banco de dados não relacional, um dos desafios mais relevantes foi a formatação adequada dos arquivos JSON. Durante a implementação da lógica em Python responsável por persistir as informações, observou-se que a codificação dos caracteres não era mantida corretamente, resultando em inconsistências, principalmente com caracteres especiais. Assim, as informações retornavam com símbolos incorretos. Com o apoio de fóruns e da comunidade de desenvolvedores, foi possível identificar a causa do problema e implementar uma solução eficiente utilizando codificação no padrão UTF-8, garantindo a integridade dos dados armazenados e a correta leitura das informações posteriormente.
 
-As perguntas fornecidas na pesquisa para as populações foram as seguintes: 
+Após as configurações e ajustes, o sistema demonstrou respostas mais coerentes e contextualizadas às perguntas dos usuários, especialmente nas consultas relacionadas ao ambiente escolar, documentos e procedimentos institucionais. O desempenho geral manteve-se satisfatório, apresentando baixo tempo de resposta mesmo em situações de múltiplas requisições simultâneas.
 
-\begin{enumerate}
-    \item Qual é o valor para realizar a inscrição no vestibular?
-    \item Quais documentos são necessários para fazer a matricula?
-    \item Até que dia posso me inscrever para realizar a prova?
-    \item Quando sairá a data a respeito do local de prova do Campus de Itapetininga?
-    \item Caso eu passe na prova, quando posso fazer a matricula?
-\end{enumerate}
-
-Diante da observação das populações foi verificado que o sistema se faz uma ótima opção quando a busca é por informações mais complexas como é o caso das perguntas 2 e 4, entretanto o sistema não é recomendado para perguntas que são mais visíveis no edital. Dessa forma o sistema útil em situações específicas, como pode ser analisado ao obter a média aritmética simples do tempo levado na pesquisa em cada.
-
-\begin{tabular}{ |p{2cm}|p{2cm}|p{2cm}| }
-\hline
-\multicolumn{3}{|c|}{Média Aritmética Simples} \\
-\hline
- & Grupo A & Grupo B \\
-\hline
-Pergunta 1 & 00:14.2 & 00:09.4 \\
-Pergunta 2 & 00:17.6 & 01:56.2 \\
-Pergunta 3 & 00:13.6 & 00:28.2 \\
-Pergunta 4 & 00:10.8 & 01:00.4 \\
-Pergunta 5 & 00:16.0 & 00:12.6 \\
-\hline
-\end{tabular}
-
-A pesquisa foi conduzida por meio da cronometragem do tempo gasto para encontrar as respostas às perguntas fornecidas. Ao final, a avaliação dos resultados ocorreu de forma quantitativa, delimitando o tempo gasto em cada pergunta e no total, e qualitativa, ao identificar as dificuldades encontradas durante o processo de busca por informações para pensar em melhorias.
+O desenvolvimento do sistema proporcionou uma compreensão aprofundada sobre o funcionamento de APIs, bancos de dados não relacionais e integração com modelos de linguagem. Além disso, reforçou a importância do tratamento adequado de dados, da organização modular do código e da adoção de boas práticas de codificação para garantir a confiabilidade, escalabilidade e manutenção da aplicação.
