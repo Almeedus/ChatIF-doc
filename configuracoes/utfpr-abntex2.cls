@@ -12,7 +12,6 @@
 %% Further information about abnTeX2 are available on http://www.abntex.net.br/
 %%------------------------------------------------------------------------------
 
-
 % -----------------------------------------------------------------------------
 % Universidade Tecnológica Federal do Paraná - UTFPR
 %

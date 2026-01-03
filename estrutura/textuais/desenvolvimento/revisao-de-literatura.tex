@@ -3,88 +3,265 @@
 \chapter{REVISÃO BIBLIOGRÁFICA}
 \label{chap:fundamentacaoTeorica}
 
-Com o avanço acelerado das Inteligências Artificiais (IAs) nos ultimos tempos, cada vez mais são desenvolvidas soluções, algoritmos e bibliotecas que visam sustentar a sua otimização. Desta forma, algumas ferramentas são destaque por estar presente na maioria dos projetos atuais como o ChatGPT, Copilot e demais IAs voltadas ao modelo de chatbot. A ideia da pesquisa é compreender quais tecnologias e bibliotecas são utilizadas atualmente.
+Com o avanço acelerado das Inteligências Artificiais (IAs) nos ultimos tempos, 
+cada vez mais são desenvolvidas soluções, algoritmos e bibliotecas que visam 
+sustentar a sua otimização. Desta forma, algumas ferramentas são destaque por 
+estar presente na maioria dos projetos atuais como o ChatGPT, Copilot e demais 
+IAs voltadas ao modelo de \textit{chatbot}. A ideia da pesquisa é compreender quais 
+tecnologias e bibliotecas são utilizadas atualmente.
 
-Os resultados apresentados destacam que a principal tecnologia de desenvolvimento é o Python por meio de sua simplicidade, facilidade de uso, bibliotecas presentes no ambiente de machine learning e IA como é destacada em um artigo presente na escola Asimov Academy:
+Os resultados apresentados destacam que a principal tecnologia de desenvolvimento 
+é o Python por meio de sua simplicidade, facilidade de uso, bibliotecas presentes 
+no ambiente de \textit{machine learning} e IA como é destacada em um artigo presente na 
+escola Asimov Academy:
 \\\begin{citacao}
-Python oferece uma grande variedade de bibliotecas e frameworks voltados para inteligência artificial e machine learning, como TensorFlow, Keras, Scikit-learn e PyTorch, que permitem o desenvolvimento ágil e eficiente de modelos de IA. Além disso, a ampla documentação disponível facilita o processo de aprendizado para desenvolvedores \cite{asimov}.
+Python oferece uma grande variedade de bibliotecas e frameworks voltados para 
+inteligência artificial e machine learning, como TensorFlow, Keras, Scikit-learn 
+e PyTorch, que permitem o desenvolvimento ágil e eficiente de modelos de IA. 
+Além disso, a ampla documentação disponível facilita o processo de aprendizado 
+para desenvolvedores \cite{asimov}.
 \\\end{citacao}
 
-\citeonline{securityfirst} salienta que o ChatGPT (Generative Pre-Trained Transformer) desenvolvido pela OpenAI é um dos princípais exemplos de IA atuamente, seu desenvolvimento se baseia na linguagem Python que consome algumas bibliotecas, dentre elas o TensorFlow e PyTorch para instruir transformers pré-treinados dentro do modelo de LLM (Large Language Model).
+\citeonline{securityfirst} salienta que o ChatGPT 
+(\textit{Generative Pre-Trained Transformer}) desenvolvido pela OpenAI é um dos 
+princípais exemplos de IA atuamente, seu desenvolvimento se baseia na linguagem 
+Python que consome algumas bibliotecas, dentre elas o TensorFlow e PyTorch para 
+instruir \textit{transformers} pré-treinados dentro do modelo de LLM 
+(\textit{Large Language Model}).
 
-Dentro de seu desenvolvimento há 4 principais bibliotecas que estão presentes nos projetos que envolvem inteligências artificiais: PyTorch, Scikit-Learn, TensorFlow e Keras. As bibliotecas são voltadas principalmente para machine learning, deep learning, aprendizado de maquina, aprendizado profundo e redes neurais, como é destacado em \citeonline{datacamp} e \citeonline{csptecnologia}.
+Dentro de seu desenvolvimento há 4 principais bibliotecas que estão presentes 
+nos projetos que envolvem inteligências artificiais: PyTorch, Scikit-Learn, 
+TensorFlow e Keras. As bibliotecas são voltadas principalmente para \textit{machine 
+learning}, \textit{deep learning} e redes neurais, como é destacado 
+em \citeonline{datacamp} e \citeonline{csptecnologia}.
 
 \section{Aprendizado de Máquina (\textit{Machine Learning})}
 \label{sec:Machine Learning}
-Segundo a \citeonline{oracle2024} o Machine Learning é um subconjunto da inteligência artificial que melhora seu desempenho a partir de uma análise nos dados recebidos. Atualmente há duas principais abordagem quando o assunto é aprendizado de maquina, a primeira delas é o \textbf{aprendizado supervisionado}, o \textbf{aprendizado não supervisionado} e \textbf{aprendizado semi-supervisionado}.
+Segundo a \citeonline{oracle2024} o \textit{Machine Learning} é um subconjunto da 
+inteligência artificial que melhora seu desempenho a partir de uma análise nos 
+dados recebidos. Atualmente há três principais abordagens quando o assunto é 
+aprendizado de maquina, a primeira delas é o \textbf{aprendizado supervisionado}, 
+o \textbf{aprendizado não supervisionado} e \textbf{aprendizado semi-supervisionado}.
 
-Ao realizar o aprendizado supervisionado é necessário criar uma base de dados rotulada que mapeia um atributo específico de um objeto fornecendo características conhecidas é possível treinar um modelo para retornar determinada saída, ou seja, fornecendo dados rotulados de um objeto 'maçã' para um modelo pela abordagem do aprendizado supervisionado é possível treina-lo para reconhecer objetos que tenham as mesmas características do objeto "maçã"\  fornecido anteriormente como cita \citeonline{googlecloud2024} e ainda completa com alguns exemplos de algoritmos que realizam essa abordagem, como é o caso da \textbf{Regressão Linear, Regressão Polinomial, Vizinhos mais próximos exatos, Nayve Bayes e Arvore de Decisão}.
+Ao realizar o aprendizado supervisionado é necessário criar uma base de dados 
+rotulada que mapeia um atributo específico de um objeto fornecendo características 
+conhecidas é possível treinar um modelo para retornar determinada saída, ou seja, 
+fornecendo dados rotulados de um objeto 'maçã' para um modelo pela abordagem do 
+aprendizado supervisionado é possível treina-lo para reconhecer objetos que 
+tenham as mesmas características do objeto "maçã"\  fornecido anteriormente 
+como cita \citeonline{googlecloud2024} e ainda completa com alguns exemplos de 
+algoritmos que realizam essa abordagem, como é o caso da 
+\textbf{Regressão Linear, Regressão Polinomial, Vizinhos mais próximos exatos, Nayve Bayes e Arvore de Decisão}.
 
-Por outro lado o método de aprendizado não supervisionado não rotula os dados anteriormente, sendo assim o algoritmo que aprende por este método não tem a "supervisão"\  em si dos humanos para que sejam feitas correções e as pré-rotulações de saída. Sua lógica parte de uma categorização de grupos tomando por base os atributos. Dessa forma ao fornecer imagens diversas o algoritmo irá encontrar um padrão para o seu agrupamento, ou seja, tomando por base a cor, tamanho, estilo, será possível dividi-los e rotulá-los. Alguns exemplos segundo o \citeonline{googlecloud2024} são o \textbf{K-means Clustering, Clustering hierárquico e o Mínimo Quadrado Parcial}. 
+Por outro lado o método de aprendizado não supervisionado não rotula os dados 
+anteriormente, sendo assim o algoritmo que aprende por este método não tem a 
+"supervisão"\  em si dos humanos para que sejam feitas correções e as 
+pré-rotulações de saída. Sua lógica parte de uma categorização de grupos tomando 
+por base os atributos. Dessa forma ao fornecer imagens diversas o algoritmo irá 
+encontrar um padrão para o seu agrupamento, ou seja, tomando por base a cor, 
+tamanho, estilo, será possível dividi-los e rotulá-los. Alguns exemplos segundo 
+o \citeonline{googlecloud2024} são o \textbf{\textit{K-means Clustering}, Clustering hierárquico e o Mínimo Quadrado Parcial}. 
 
-O aprendizado cuja mistura as técnicas das duas abordagens anteriores é denominado Aprendizado Semi-Supervisionado e é utilizado em sua maioria quando se há uma quantidade limitada de dados como aborda \citeonline{Marcus2024} e por isso em muitos casos é uma melhor opção pois não é tão custosa quanto o aprendizado supervisionado e ao mesmo tempo é mais precisa que o aprendizado não supervisionado, já que nela não é necessário a rotulação de todos os dados.
+O aprendizado cujo mistura as técnicas das duas abordagens anteriores é 
+denominado Aprendizado Semi-Supervisionado e é utilizado em sua maioria quando 
+se há uma quantidade limitada de dados como aborda \cite{Marcus2024} e por 
+isso em muitos casos é uma melhor opção pois não é tão custosa quanto o aprendizado 
+supervisionado e ao mesmo tempo é mais precisa que o aprendizado não supervisionado, 
+já que nela não é necessário a rotulação de todos os dados.
 
-Dentro do aprendizado semi-supervisionado encontra-se premissas que visam garantir um resultado válido e concreto que partem de conceitos da \textbf{continuidade, cluster, baixa densidade e hipótese de manifold}.
+Dentro do aprendizado semi-supervisionado encontra-se premissas que visam 
+garantir um resultado válido e concreto que partem de conceitos 
+da \textbf{continuidade, \textit{cluster}, baixa densidade e hipótese de \textit{manifold}}.
 
-A Premissa da Continuidade presente no aprendizado semi-supervisionado defende que dados que compartilham de mesmas características tendem a pertencer a uma mesma classe, sendo assim pode-se classificar amostras que ainda não tem uma rotulação previamente informada como informa \citeonline{Marcus2024}. Sendo assim essa premissa além de realizar a classificação dos dados, ainda provém uma melhor generalização do modelo, já que os dados não rotulados possuem características que ainda não foram classificadas dentro do grupo em que foram adicionados. 
+A Premissa da Continuidade presente no aprendizado semi-supervisionado defende 
+que dados que compartilham de mesmas características tendem a pertencer a uma 
+mesma classe, sendo assim pode-se classificar amostras que ainda não tem uma 
+rotulação previamente informada como informa \citeonline{Marcus2024}. Sendo 
+assim essa premissa além de realizar a classificação dos dados, ainda provém 
+uma melhor generalização do modelo, já que os dados não rotulados possuem 
+características que ainda não foram classificadas dentro do grupo em que foram 
+adicionados. 
 
-O Conceito de Cluster surge como um aglomerado de dados  que formam uma classe, ou seja, um grupo de dados. A premissa de cluster aprende como os dados rotulados estão agrupados e usa essa informação para identificar e prever onde cada dado não rotulado se encaixa, como é destacado no trecho a seguir:
+O Conceito de Cluster surge como um aglomerado de dados que formam uma classe, 
+ou seja, um grupo de dados. A premissa de cluster aprende como os dados rotulados 
+estão agrupados e usa essa informação para identificar e prever onde cada dado não 
+rotulado se encaixa, como é destacado no trecho a seguir:
 \begin{citacao}
-    "O aprendizado de máquina semi-supervisionado explora essa premissa ao usar dados rotulados para inferir a estrutura de agrupamento subjacente e, assim, atribuir rótulos a dados não rotulados próximos a um determinado grupo."\  \cite{Marcus2024}
+    "O aprendizado de máquina semi-supervisionado explora essa premissa ao usar 
+    dados rotulados para inferir a estrutura de agrupamento subjacente e, assim, 
+    atribuir rótulos a dados não rotulados próximos a um determinado grupo."\  
+    \cite{Marcus2024}
 \end{citacao}
 
-\citeonline{Marcus2024} destaca ao falar da Premissa de Baixa Densidade que "Os algoritmos de aprendizado de máquina semi-supervisionado buscam aproveitar essas regiões, explorando os dados não rotulados para melhorar a capacidade de generalização em áreas menos densamente populadas", ou seja, diferente da premissa de cluster, que foca nos grupos de dados semelhantes, a premissa de baixa densidade reconhece a importância das áreas entre esses clusters ou em regiões menos densamente povoadas e visa melhorar a sua acurácia ao explorar e entender áreas com poucos dados rotulados.
+\cite{Marcus2024} destaca ao falar da Premissa de Baixa Densidade que "Os 
+algoritmos de aprendizado de máquina semi-supervisionado buscam aproveitar essas 
+regiões, explorando os dados não rotulados para melhorar a capacidade de generalização 
+em áreas menos densamente populadas", ou seja, diferente da premissa de \textit{cluster}, 
+que foca nos grupos de dados semelhantes, a premissa de baixa densidade reconhece 
+a importância das áreas entre esses \textit{clusters} ou em regiões menos densamente povoadas 
+e visa melhorar a sua acurácia ao explorar e entender áreas com poucos dados rotulados.
 
-Conhecido como hipótese de manifold ou premissa de variedade, sugere que ao analisar dados de alta dimensão é possível encontrar locais em que há dados rotulados que possuem características que podem ser agrupadas em clusters, para que assim consigam realizar previsões e definir novos padrões e categoriza-los.
+Conhecido como hipótese de manifold ou premissa de variedade, sugere que ao 
+analisar dados de alta dimensão é possível encontrar locais em que há dados 
+rotulados que possuem características que podem ser agrupadas em clusters, para 
+que assim consigam realizar previsões e definir novos padrões e categoriza-los.
 
 \begin{citacao}
-    "assume que os dados não rotulados próximos a dados rotulados provavelmente seguem a mesma estrutura subjacente da variedade. Algoritmos semi-supervisionados exploram essa premissa para prever rótulos em regiões pouco exploradas, melhorando a generalização do modelo em espaços de características complexas."\  \cite{Marcus2024}
+    "assume que os dados não rotulados próximos a dados rotulados provavelmente 
+    seguem a mesma estrutura subjacente da variedade. Algoritmos semi-supervisionados 
+    exploram essa premissa para prever rótulos em regiões pouco exploradas, 
+    melhorando a generalização do modelo em espaços de características complexas."\  
+    \cite{Marcus2024}
 \end{citacao}
 
-\section{Chatbot: Conceitos e Tecnologias}
-Os Chatbots são códigos que interpretam as entradas fornecidas pelos usuários e retornam uma saída, o processo consiste em simular conversas humanas permitindo que haja a interação de humanos com dispositivos digitais, como destaca \cite{oracle_chatbots} e ainda completam que esse tipo de sistema é crescente, ou seja, podem se moldar a partir das informações coletadas durante a sua execução. \cite{google_cloud_ai_chatbot} informa que diferentemente dos chatbots convencionais que utilizam PLN e ML, os sistemas que trabalham com a tecnologia de IA utilizam LLM para comparar os fluxos de conversas geradas e respostas pré-treinadas.  
+\section{\textit{Chatbot}: Conceitos e Tecnologias}
+Os \textit{Chatbots} são códigos que interpretam as entradas fornecidas pelos usuários e 
+retornam uma saída, o processo consiste em simular conversas humanas permitindo 
+que haja a interação de humanos com dispositivos digitais, como destaca 
+\cite{oracle_chatbots}  
+e ainda completam que esse tipo de sistema é crescente, 
+ou seja, podem se moldar a partir das informações coletadas durante a sua execução. 
+\cite{google_cloud_ai_chatbot} informa que diferentemente dos \textit{chatbots} 
+convencionais 
+que utilizam PLN e ML, os sistemas que trabalham com a tecnologia de IA utilizam LLM 
+para comparar os fluxos de conversas geradas e respostas pré-treinadas.  
 
-Em sua execução o chatbot pode conter uma ou mais tecnologias, entre elas estão a utilização de inteligência artificial, regras automatizadas, NLP (Processamento de Linguagem Neural) e ML (Aprendizado de Máquina). Tais tecnologias geram dois principais tipos de chatbot: \textbf{Orientado a tarefas (declarativo)} e \textbf{Orientado por dados e preditivos (convencionais)}.
+Em sua execução o \textit{chatbot} pode conter uma ou mais tecnologias, entre elas estão 
+a utilização de inteligência artificial, regras automatizadas, 
+NLP (Processamento de Linguagem Neural) e ML (Aprendizado de Máquina). Tais 
+tecnologias geram dois principais tipos de chatbot: 
+\textbf{Orientado a tarefas (declarativo)} e \textbf{Orientado por dados e 
+preditivos (convencionais)}.
 
-Bem populares no cotidiano, os chatbots declarativos ou orientados a tarefas desempenham uma função específica, muitas vezes focadas em situações simples e que não envolvem uma grande diversidade de variáveis. \cite{oracle_chatbots} salienta que mesmo utilizando regras, NLP e ML eles não possuem uma estrutura que permita ser utilizados em diversas situações, ou seja, são mais aplicáveis em situações de suporte e serviço.   
+Bem populares no cotidiano, os \textit{chatbots} declarativos ou orientados a tarefas 
+desempenham uma função específica, muitas vezes focadas em situações simples e 
+que não envolvem uma grande diversidade de variáveis. \citeonline{oracle_chatbots} 
+salienta que mesmo utilizando regras, NLP e ML eles não possuem uma estrutura 
+que permita ser utilizados em diversas situações, ou seja, são mais aplicáveis 
+em situações de suporte e serviço.   
 
-Os chatbots convencionais, descritos como assistentes digitais ou virtuais pela \cite{oracle_chatbots} apresentam uma interação mais sofisticada em comparação aos declarativos. Aplicam em sua construção a inteligência preditiva e a análise, o que permite que as respostas sejam baseadas no comportamento anterior. Para o seu funcionamento é necessário um contexto inicial, NLP, ML e também NLU (Entendimento de Linguagem Natural  é um subconjunto do processamento de linguagem natural que ajuda a compreender a interpretar e compreender questões humanas como informa \cite{botpress_nlu}).
+Os \textit{chatbots} convencionais, descritos como assistentes digitais ou virtuais pela 
+empresa \citeonline{oracle_chatbots} apresentam uma interação mais sofisticada em comparação 
+aos declarativos. Aplicam em sua construção a inteligência preditiva e a análise, 
+o que permite que as respostas sejam baseadas no comportamento anterior. Para o 
+seu funcionamento é necessário um contexto inicial, NLP, ML e também NLU 
+(Entendimento de Linguagem Natural  é um subconjunto do processamento de 
+linguagem natural que ajuda a compreender a interpretar e compreender questões 
+humanas como informa \citeonline{botpress_nlu}).
 
 
 \section{Modelos de linguagem de grande escala (\textit{large language model})}
 \label{sec:Large Language Model}
-O LLM (Large Language Model ou Grande Modelo de Linguagens) é um modelo de Inteligência Artificial capazes de entender e gerar linguagem natural, onde seu treinamento é realizado por meio de um grande volume de dados, como afirma \cite{ibm_llms}.
-\citeonline{redhat_llms} complementa que ao usar as técnicas necessárias de machine learning uma LLM, ela se especializa em um determinado caso, eles podem ser variados entre geração de linguagem humana, imagem, textos, etc. Para o desenvolvimento deste modelo de base de IA é aplicado processamento de linguagem neural (NLP) para compreender de forma lógica a resposta, ou seja, por meio do NLP o computador aprende como interpretar perguntas, entende-las e por fim responder com precisão ao que foi solicitado.
+O LLM (\textit{Large Language Model} ou Grande Modelo de Linguagens) é um modelo de 
+Inteligência Artificial capaz de entender e gerar linguagem natural, onde seu 
+treinamento é realizado por meio de um grande volume de dados, como afirma \cite{ibm_llms}.
+\citeonline{redhat_llms} complementa que ao usar as técnicas necessárias de 
+machine learning uma LLM, ela se especializa em um determinado caso, eles podem 
+ser variados entre geração de linguagem humana, imagem, textos, etc. Para o 
+desenvolvimento deste modelo de base de IA é aplicado processamento de linguagem 
+neural (NLP) para compreender de forma lógica a resposta, ou seja, por meio do 
+NLP o computador aprende como interpretar perguntas, entende-las e por fim 
+responder com precisão ao que foi solicitado.
 
-O desenvolvimento de uma LLM como o BERT (\textit{Bidirectional Encoder Representations from Transformers}) e o GPT-3 (\textit{Generative Pre-Trained Transformer}) parte do princípio de um transformador generativo pré-treinado juntamente com mecanismo de atenção. Devido a isso o LLM é capaz de prever qual será a próxima palavra, levando em consideração o contexto fornecido anteriormente. Esse estilo de previsão só é possível por conta de uma probabilidade de recorrência das palavras que são tokenizadas para serem utilizadas no transformador, ou seja, elas são divididas em caracteres menores e disponibilizados de forma sequencial dentro de um vetor, onde por fim esses tokens viram embeddings para serem utilizadas pelo modelo, como descreve \cite{ibm_llms}.
+O desenvolvimento de uma LLM como o BERT 
+(\textit{Bidirectional Encoder Representations from Transformers}) e o GPT-3 
+(\textit{Generative Pre-Trained Transformer}) parte do princípio de um 
+transformador generativo pré-treinado juntamente com mecanismo de atenção. 
+Devido a isso o LLM é capaz de prever qual será a próxima palavra, levando em 
+consideração o contexto fornecido anteriormente. Esse estilo de previsão só é 
+possível por conta de uma probabilidade de recorrência das palavras que são 
+\textit{tokenizadas} para serem utilizadas no transformador, ou seja, elas são divididas 
+em caracteres menores e disponibilizados de forma sequencial dentro de um vetor, 
+onde por fim esses \textit{tokens} viram \textit{embeddings} para serem 
+utilizadas pelo modelo.
 
-Os Embeddings são uma forma de representação por meio de símbolos (palavras, caracteres, frase) em um vetor de valor contínuo, onde são correlacionadas uma com a outra, como destaca \cite{deeplearningbook_transformers}.
+Os \textit{Embeddings} são uma forma de representação por meio de símbolos 
+(palavras, caracteres, frase) em um vetor de valor contínuo, onde são 
+correlacionadas uma com a outra, como destaca \cite{deeplearningbook_transformers}.
 
-Tais representações são geradas após passarem pelo Transformador dentro de um modelo, onde são um tipo de arquitetura de rede neural que transforma ou altera uma sequência de entrada em uma sequência de saída, ou seja, por meio do contexto fornecido a arquitetura do transformador rastreia entre os seus componentes (tokens) qual é a sequência por meio da relevância, explica \cite{aws_transformers_ai}.
+Tais representações são geradas após passarem pelo Transformador dentro de um 
+modelo, onde são um tipo de arquitetura de rede neural que transforma ou altera 
+uma sequência de entrada em uma sequência de saída, ou seja, por meio do contexto 
+fornecido a arquitetura do transformador rastreia entre os seus componentes 
+(\textit{tokens}) qual é a sequência por meio da relevância, explica 
+\cite{aws_transformers_ai}.
 
-Na construção de uma LLM é necessário entender que a sua formação contém diversas camadas de componentes de uma arquitetura de transformação. É possível realizar a divisão em camadas para melhor entendimento e são elas: \textbf{Incorporações de Entrada, Codificação Posicional, Bloco de Transformador, e Blocos Lineares e Softmax.}
+Na construção de uma LLM é necessário entender que a sua formação contém 
+diversas camadas de componentes de uma arquitetura de transformação. É possível 
+realizar a divisão em camadas para melhor entendimento e são elas: 
+\textbf{Incorporações de Entrada, Codificação Posicional, Bloco de Transformador, 
+e Blocos Lineares e \textit{Softmax}.}
 
-Na Incorporações de Entrada a entrada fornecida é convertida para um domínio matemático (função que fornece uma saída para cada valor fornecido como entrada) que por sua vez passa por um processamento, ou seja, acontece uma divisão do que foi informado em pequenas partes chamadas de "tokens" ou componentes de sequência individual de forma vetorizada, onde esses vetores contém informações semânticas e de sintaxe, representadas como números que permitem calcular relações entre as palavras.
+Na Incorporações de Entrada a entrada fornecida é convertida para um domínio 
+matemático (função que fornece uma saída para cada valor fornecido como entrada) 
+que por sua vez passa por um processamento, ou seja, acontece uma divisão do que 
+foi informado em pequenas partes chamadas de "\textit{tokens}" ou componentes de 
+sequência individual de forma vetorizada, onde esses vetores contém informações 
+semânticas e de sintaxe, representadas como números que permitem calcular relações 
+entre as palavras.
 \\\begin{citacao}
-    "O software pode usar os números para calcular as relações entre palavras em termos matemáticos e entender o modelo da linguagem humana. As incorporações fornecem uma maneira de representar tokens discretos como vetores contínuos, que o modelo pode processar e aprender."\  \cite{aws_transformers_ai}.
+    "O \textit{software} pode usar os números para calcular as relações entre 
+    palavras em termos matemáticos e entender o modelo da linguagem humana. As 
+    incorporações fornecem uma maneira de representar \textit{tokens} discretos 
+    como vetores contínuos, que o modelo pode processar e aprender."\  
+    \cite{aws_transformers_ai}.
 \\\end{citacao}
     
-Após realizar a incorporação de entrada a próxima etapa é a codificação posicional que a  \citeonline{aws_transformers_ai} declara que por não processar dados sequenciais inerentes em ordem, um transformador necessita de uma codificação para ordenar os tokens em uma sequência de entrada. Desta forma a codificação posicional acopla ao token uma informação referente a sua posição na sequência. Realizando esse processo é possível entender o contexto da sequência. 
+Após realizar a incorporação de entrada a próxima etapa é a codificação posicional 
+que a  \citeonline{aws_transformers_ai} declara que por não processar dados 
+sequenciais inerentes em ordem, um transformador necessita de uma codificação 
+para ordenar os \textit{tokens} em uma sequência de entrada. Desta forma a codificação 
+posicional acopla ao \textit{token} uma informação referente a sua posição na 
+sequência. Realizando esse processo é possível entender o contexto da sequência. 
 
-O bloco de transformador tem uma arquitetura que contém uma composição no qual permite um feedback direto em relação à posição de cada elemento na sequência fornecida por meio da rede neural e uma avaliação precisa na importância dos símbolos existentes no que está sendo análisado por meio do mecanismo de autoatenção que permite o agrupamento das palavras tokenizadas para compreender melhor o sentido da frase, como salienta \citeonline{aws_transformers_ai}.
+O bloco de transformador tem uma arquitetura que contém uma composição no qual 
+permite um \textit{feedback} direto em relação à posição de cada elemento na 
+sequência fornecida por meio da rede neural e uma avaliação precisa na importância 
+dos símbolos existentes no que está sendo analisado por meio do mecanismo de 
+autoatenção que permite o agrupamento das palavras \textit{tokenizadas} para 
+compreender melhor o sentido da frase, como salienta \citeonline{aws_transformers_ai}.
     
-Finalizando o processo nos Blocos Líneares e Softmax é necessário fazer uma previsão precisa e concreta para determinar a próxima palavra da sequência. Dessa forma a camada densa ou bloco linear executa um mapeamento linear que percorre o espaço definido do vetor até o domínio de entrada inicial. Ao terminar esse procedimento, é gerado um logit (conjunto de pontuações) para cada token. A \citeonline{aws_transformers_ai} informa que o Softmax converte essas pontuações em uma distribuição probabilística normalizada, onde cada resultado indica a probabilidade de um determinado token
+Finalizando o processo nos Blocos Líneares e \textit{Softmax} é necessário fazer 
+uma previsão precisa e concreta para determinar a próxima palavra da sequência. 
+Dessa forma a camada densa ou bloco linear executa um mapeamento linear que 
+percorre o espaço definido do vetor até o domínio de entrada inicial. Ao 
+terminar esse procedimento, é gerado um \textit{logit} (conjunto de pontuações) 
+para cada \textit{token}. A \citeonline{aws_transformers_ai} informa que o 
+\textit{Softmax} converte essas pontuações em uma distribuição probabilística 
+normalizada, onde cada resultado indica a probabilidade de um determinado 
+\textit{token}.
 
-\section{Tecnologias LLM em Chatbots: Langchain e outros}
+\section{Tecnologias LLM em \textit{Chatbots}: LangChain e outros}
 
-O langchain é uma estrutura de orquestração disponível em Python para criação de agentes virtuais, chatbots que trabalhem com LLM, segundo \citeonline{redhat_orchestration} o termo orquestração define um sistema que realiza a coordenação de tarefas e processos, ou seja, ela gerencia automações para que sejam possíveis operar de forma global todos os algoritmos que a aplicação está englobando. Desta forma o Langchain fornece de forma genérica um ambiente que pode ser modificado para suprir a demanda necessária, como destacado por \citeonline{ibm_langchain}.
+O langChain é uma estrutura de orquestração disponível em Python para criação de 
+agentes virtuais, \textit{chatbots} que trabalhem com LLM, segundo 
+\citeonline{redhat_orchestration} o termo orquestração define um sistema que 
+realiza a coordenação de tarefas e processos, ou seja, ela gerencia automações 
+para que sejam possíveis operar de forma global todos os algoritmos que a 
+aplicação está englobando. Desta forma o LangChain fornece de forma genérica um 
+ambiente que pode ser modificado para suprir a demanda necessária, como destacado 
+por \citeonline{ibm_langchain}.
 
-Em sua página oficial, o \citeonline{langchain_official} informa a existência de muitos componentes para diversos casos, onde além de fornecer modelos e ferramentas, é possível encontrar conversores de saída, carregadores de documentos, entre outros módulos.  
+Em sua página oficial, o \citeonline{langchain_official} informa a existência de 
+muitos componentes para diversos casos, onde além de fornecer modelos e ferramentas, 
+é possível encontrar conversores de saída, carregadores de documentos, entre 
+outros módulos.  
 
-As 'cadeias' fortemente presentes na lógica do LangChain são fluxos de códigos que após a finalização de uma solicitação, faz com que a próxima é desencadeada, dessa forma é possível criar um prompt funcional importando com poucas linhas de código.
+As 'cadeias' fortemente presentes na lógica do LangChain são fluxos de códigos 
+que após a finalização de uma solicitação, faz com que a próxima desencadeada, 
+dessa forma é possível criar um \textit{prompt} funcional importando com poucas 
+linhas de código.
 
-Com a premissa de Low-code, essa alternativa apresenta a possibilidade de criação dos modelos partindo de uma interface gráfica, o que auxilia pessoas. Assim como o Langchain, é possível consumir um Modelo externo como o LLama, GPT, entre outros, como apresentado por \citeonline{flowise_ai}.
+Com a premissa de \textit{Low-code}, essa alternativa apresenta a possibilidade 
+de criação dos modelos partindo de uma interface gráfica, o que auxilia pessoas. 
+Assim como o LangChain, é possível consumir um Modelo externo como o LLama, GPT, 
+entre outros, como apresentado por \citeonline{flowise_ai}.
 
-O \citeonline{tensorflow} é uma tecnologia que facilita a criação de LLMs com tecnologias voltadas ao Machine Learning, criada pela Google, essa tecnologia é compatível com computação numérica geral, redes neurais e deep learning. Atualmente é uma das bibliotecas mais populares quando o assunto é IA, segundo \citeonline{databricks} o TensorFlow é a escolha de 64\% das pessoas que utilizam alguma tecnologia de Inteligencia Artificial.
+O \citeonline{tensorflow} é uma tecnologia que facilita a criação de LLMs com 
+tecnologias voltadas ao \textit{Machine Learning}, criada pela Google, essa 
+tecnologia é compatível com computação numérica geral, redes neurais e 
+\textit{deep learning}. Atualmente é uma das bibliotecas mais populares quando 
+o assunto é IA, segundo \citeonline{databricks} o TensorFlow é a escolha de 64\% 
+das pessoas que utilizam alguma tecnologia de Inteligencia Artificial.
 
 
